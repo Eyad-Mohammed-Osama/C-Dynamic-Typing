@@ -67,9 +67,18 @@ Notice that the compilation must be done using C++ 2011 standard , if you're on 
 - String literals doesn't work:
 
 ```c++
+
 DynamicTyping::Object var1 = "Hello World";           // won't compile
 DynamicTyping::Object var2 = string("Hello World");   // compiles fine
+
 ```
 (Hopefully this will be fixed in the future releases)
 
 - Possible memory lacks (the implementation adds a layer above the `void*` datatype , and since deallocating a `void` pointer is undefined behavior , it was left as is) .
+
+# Report issues
+I don't expect this to be perfect , especially when this is the first release , there must be issues i haven't noticed.
+
+In case you found some of those issues , please don't hesitate to open an <a href="https://github.com/Eyad-Mohammed-Osama/CPP-Dynamic-Typing/issues/new">Issue</a> 
+
+Maybe some people get disturbed or frustrated when they see issues in their repositories , but i feel happy when i see issues in my repository , issues make me feel happy :) .
