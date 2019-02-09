@@ -34,10 +34,12 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
     };
 
     class Object {
-        public:
+        private:
         void *value;    // holds the value
         Type type;      // holds the type
 
+
+        public:
         // Constructors for different primitive types
         Object();
         Object(char);                       // 8 bit ASCII character
@@ -127,6 +129,8 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
 
         bool operator==(const Object&);     // check whether two variables point at the same instance or not
         bool operator!=(const Object&);     // inverse of the above
+
+        Type GetType();                     // returns the type of the variable
     };  // end of the class
 }       // end of the namespace
 

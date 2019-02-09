@@ -154,3 +154,7 @@ bool DynamicTyping::Object::operator==(const DynamicTyping::Object &variable) {
 bool DynamicTyping::Object::operator!=(const DynamicTyping::Object &variable) {
     return (this->value != variable.value);
 }
+
+DynamicTyping::Type DynamicTyping::Object::GetType() {
+    return this->type;
+}
