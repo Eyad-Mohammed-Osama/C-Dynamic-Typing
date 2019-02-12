@@ -158,3 +158,64 @@ bool DynamicTyping::Object::operator!=(const DynamicTyping::Object &variable) {
 DynamicTyping::Type DynamicTyping::Object::GetType() {
     return this->type;
 }
+
+std::string DynamicTyping::Object::ToString() {
+    if (this->type == Type::Char) {
+        char temp = *(char*)this->value;
+        return std::string(1, temp);
+    }
+    else if (this->type == Type::Bool) {
+        bool temp = *(bool*)this->value;
+        if (temp == 0) {
+            return std::string("false");
+        }
+        return std::string("true");
+    }
+    else if (this->type == Type::Int16) {
+        short int temp = *(short int*)this->value;
+        return std::to_string(temp);
+    }
+    else if (this->type == Type::UInt16) {
+        unsigned short int temp = *(unsigned short int*)this->value;
+        return std::to_string(temp);
+    }
+    else if (this->type == Type::Int32) {
+        int temp = *(int*)this->value;
+        return std::to_string(temp);
+    }
+    else if (this->type == Type::UInt32) {
+        unsigned int temp = *(unsigned int*)this->value;
+        return std::to_string(temp);
+    }
+    else if (this->type == Type::Int64) {
+        long long int temp = *(long long int*)this->value;
+        return std::to_string(temp);
+    }
+    else if (this->type == Type::UInt64) {
+        unsigned long long int temp = *(unsigned long long int*)this->value;
+        return std::to_string(temp);
+    }
+    else if (this->type == Type::Float) {
+        float temp = *(float*)this->value;
+        return std::to_string(temp);
+    }
+    else if (this->type == Type::Double) {
+        double temp = *(double*)this->value;
+        return std::to_string(temp);
+    }
+    else if (this->type == Type::String) {
+        std::string temp = *(std::string*)this->value;
+        return temp;
+    } 
+    else if (this->type == Type::Object) {
+        std::string temp = "Object";
+        return temp;
+    }
+    else if (this->type == Type::Other) {
+        std::string temp = this->deep_type;
+        return temp;
+    }
+    else if (this->type == Type::NoType) {
+        throw std::runtime_error("Object doesn't reference any variable of any type");
+    }
+}

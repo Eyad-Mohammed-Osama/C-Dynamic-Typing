@@ -35,8 +35,9 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
 
     class Object {
         private:
-        void *value;    // holds the value
-        Type type;      // holds the type
+        void *value;                // holds the value
+        Type type;                  // holds the type
+        std::string deep_type;      // holds the deep type for variables with Type::Other
 
 
         public:
@@ -61,6 +62,7 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
         Object(const T &variable) {
             this->value = new T(variable);
             this->type = Type::Other;
+            this->deep_type = typeid(T).name();
         }
 
         friend std::ostream &operator<<(std::ostream &os, const Object &variable) {
@@ -124,6 +126,7 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
         Object operator=(const T &variable) {
             this->value = new T(variable);
             this->type = Type::Other;
+            this->deep_type = typeid(T).name();
             return *this;
         }
 
@@ -131,6 +134,7 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
         bool operator!=(const Object&);     // inverse of the above
 
         Type GetType();                     // returns the type of the variable
+        std::string ToString();             // returns a text representation of the object
     };  // end of the class
 }       // end of the namespace
 
