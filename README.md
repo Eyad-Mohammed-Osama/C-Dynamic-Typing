@@ -4,15 +4,15 @@ A C++ class to give the ability to use dynamic typing.
 # API Index
 - <a href="#usage">Usage</a>
 - <a href="#api-reference">API Reference</a>
-    - <a>DynamicTyping::Types</a>
-    - <a>DynamicTyping::Object</a>
-        - <a>DynamicTyping::Object::Object()</a>
-        - <a>DynamicTyping::Object::operator<<()</a>
-        - <a>DynamicTyping::Object::operator=()</a>
-        - <a>DynamicTyping::Object::operator==()</a>
-        - <a>DynamicTyping::Object::operator!=()</a>
-        - <a>DynamicTyping::Object::GetType()</a>
-        - <a>DynamicTyping::Object::ToString()</a>
+    - <a href="#dynamictypingtypes">DynamicTyping::Types</a>
+    - <a href="#dynamictypingobject">DynamicTyping::Object</a>
+        - <a href="#dynamictypingobjectobject">DynamicTyping::Object::Object()</a>
+        - <a href="#dynamictypingobjectoperator">DynamicTyping::Object::operator<<()</a>
+        - <a href="#dynamictypingobjectoperator-1">DynamicTyping::Object::operator=()</a>
+        - <a href="#dynamictypingobjectoperator-2">DynamicTyping::Object::operator==()</a>
+        - <a href="#dynamictypingobjectoperator-3">DynamicTyping::Object::operator!=()</a>
+        - <a href="#dynamictypingobjectgettype">DynamicTyping::Object::GetType()</a>
+        - <a href="#dynamictypingobjecttostring">DynamicTyping::Object::ToString()</a>
 - <a href="#notes">Notes</a>
 - <a href="#noticed-issues">Noticed issues</a>
 - <a href="#report-issues">Report issues</a>
