@@ -99,8 +99,14 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
             else if (variable.type == Type::String) {
                 os << *((std::string*)variable.value);
             }
-            else {
+            else if (variable.type == Type::Object) {
                 os << "Object at memory address <" << (variable.value) << ">";
+            }
+            else if (variable.type == Type::Other) {
+                os << (variable.deep_type);
+            }
+            else if (variable.type == Type::NoType) {
+                throw std::runtime_error("Object doesn't reference any variable of any type");
             }
             return os;
         }
