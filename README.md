@@ -1,5 +1,6 @@
 # C++ Dynamic Typing
 A C++ class to give the ability to use dynamic typing.
+Please read the changelog to see latest changes.
 
 # API Index
 - <a href="#usage">Usage</a>
@@ -13,6 +14,7 @@ A C++ class to give the ability to use dynamic typing.
         - <a href="#dynamictypingobjectoperator-3">DynamicTyping::Object::operator!=()</a>
         - <a href="#dynamictypingobjectgettype">DynamicTyping::Object::GetType()</a>
         - <a href="#dynamictypingobjecttostring">DynamicTyping::Object::ToString()</a>
+        - <a href="#dynamictypingobjectgetdeeptype">DynamicTyping::Object::GetDeepType()</a>
 - <a href="#notes">Notes</a>
 - <a href="#noticed-issues">Noticed issues</a>
 - <a href="#report-issues">Report issues</a>
@@ -42,29 +44,72 @@ class Person {
 };
 
 int main(int argc, const char **argv) {
-  int a = 5;
-  float b = 6.33f;
-  double c = 9.3333332;
-  char d = 'a';
-  bool e = false;
-  string f = "Hello World";
-  Person g = Person("Syrian", "Lucianos");
-  Person *h = &g;
-  
-  // The `Object` class is contained in the `DynamicTyping` namespace
-  // You could add `using namespace DynamicTyping;` at the beginning to avoid writing the
-  // `DynamicTyping` prefix everytime.
-  
-  DynamicTyping::Object variable = 5;   //  assign an integer
-  cout << variable << endl;
-  
-  variable = g;                         //  now assign an instance of the `Person` class
-  cout << variable << endl;
-  
-  DynamicTyping::Object anotherVariable = variable;   // here's another one
-  cout << (anotherVariable == variable) << endl;      // `true`, because both variables points at the same instance
-  
-  return 0;
+    int a = 5;
+    float b = 6.33f;
+    double c = 9.3333332;
+    char d = 'a';
+    bool e = false;
+    string f = "Hello World";
+    Person g = Person("Syrian", "Lucianos");
+    Person *h = &g;
+    char s[] = "Hello World , This is a string literal";
+
+    // Let's declare an array of objects
+    DynamicTyping::Object arr[] = {a, b, c, d, e, f, g, h, s};
+
+    for (int i = 0; i < 9; i++) {
+        cout << arr[i] << "\t\t" << arr[i].GetDeepType() << endl;
+    }
+
+    cout << endl;
+    cout << endl;
+    cout << "--------------------------------------------" << endl;
+    cout << endl;
+    cout << endl;
+
+    // Now let's create a variable which can hold any datatype
+    DynamicTyping::Object variable = 5; // starting with an integer
+    cout << variable << endl;
+
+    variable = 6.33f;    //  set the value to a floating point
+    cout << variable << endl;
+
+    variable = 'a';     //  set the value to a character
+    cout << variable << endl;
+
+    variable = false;     //  set the value to a boolean
+    cout << variable << endl;
+
+    variable = string("Hello World");     //  set the value to a string
+    cout << variable << endl;
+
+    variable = "Hello World As A String Literal";   //  set the value as a string literal
+    cout << variable << endl;
+
+    DynamicTyping::Object anotherVariable = variable;   // here's another one
+    cout << anotherVariable << endl;    //  this will print the memory address of anotherVariable
+
+    variable = Person("John", "Doe");   // set the value to an instance of Person
+    cout << variable << endl;           // print the memory address of variable
+
+    cout << endl;
+    cout << endl;
+    cout << "--------------------------------------------" << endl;
+    cout << endl;
+    cout << endl;
+
+    // Two objects are equal if and only if they point at the same memory address
+
+    variable = 5;
+    anotherVariable = variable;
+
+    cout << (variable == anotherVariable) << endl;  //  true
+
+    anotherVariable = 6;
+    cout << (variable == anotherVariable) << endl;  // false
+    
+    cin.get();
+    return 0;
 }
 
 ```
@@ -152,6 +197,11 @@ We will demonstrate each of these types in the following table:
     <td class="tg-hjji"></td>
   </tr>
   <tr>
+      <td class="tg-hjji">Type::StringLiteral</td>
+    <td class="tg-hjji">Represents a string literal (it's important to review the <a href="#notes">notes</a> section)</td>
+    <td class="tg-hjji"></td>
+  </tr>
+  <tr>
     <td class="tg-hjji">Type::Object</td>
     <td class="tg-hjji">Represents an instance of the DynamicTyping::Object class that is assigned to another instance of the DynamicTyping::Object class</td>
     <td class="tg-hjji"></td>
@@ -162,8 +212,12 @@ We will demonstrate each of these types in the following table:
     <td class="tg-hjji"></td>
   </tr>
   <tr>
-    <td class="tg-hjji">Type::NoType</td>
-    <td class="tg-hjji">Represents an uninitialized instance of the DynamicTyping::Object class</td>
+    <td class="tg-hjji">
+        <s>Type::NoType</s>
+        <br/>
+        Type::Null
+    </td>
+    <td class="tg-hjji">Represents an uninitialized instance of the DynamicTyping::Object class, or an instance that is explicity initialized to `nullptr`</td>
     <td class="tg-hjji"></td>
   </tr>
 </table>
@@ -172,12 +226,14 @@ We will demonstrate each of these types in the following table:
 Provides the necessary methods and functionalities to enable dynamic typing.
 
 ### DynamicTyping::Object::Object()
-A constructor with 14 different prototypes.
+A constructor with 16 different prototypes.
 
 ```c++
 
 DynamicTyping::Object::Object();                            // Instantiate an uninitialized object
+DynamicTyping::Object(std::nullptr_t);                      // Instantiate an object and initialize it to nullptr
 DynamicTyping::Object::Object(char);                        // Instantiate an object and initialize it with an 8-bit ASCII character
+DynamicTyping::Object::Object(char*);                        // Instantiate an object and initialize it with a string literal
 DynamicTyping::Object::Object(bool);                        // Instantiate an object and initialize it with a boolean value
 DynamicTyping::Object::Object(short int);                   // Instantiate an object and initialize it with a 16-bit signed integer
 DynamicTyping::Object::Object(unsigned short int);          // Instantiate an object and initialize it with a 16-bit unsigned integer
@@ -210,7 +266,7 @@ std::cout << o << std::endl;    // print 'A'
 
 The operator works according to the following rules:
 
-1. If the object type is `Type::Char` , `Type::Bool` , `Type::Int16` , `Type::UInt16` , `Type::Int32` , `Type::UInt32` , `Type::Int64` , `Type::UInt64` , `Type::Float` , `Type::Double` , or `Type::String` , then the object's value is directly printed as is.
+1. If the object type is `Type::Char` , `Type::Bool` , `Type::Int16` , `Type::UInt16` , `Type::Int32` , `Type::UInt32` , `Type::Int64` , `Type::UInt64` , `Type::Float` , `Type::Double` , `Type::String`, or `Type::StringLiteral` , then the object's value is directly printed as is.
 2. If the object type is `Type::Object` , then the memory address of the object's value is printed , for example:
 
 ```c++
@@ -240,29 +296,31 @@ int main() {
 
 ```
 
-4. If the object is uninitialized (i.e. its type is `Type::NoType`) , then an `std::runtime_exception()` exception is thrown , and execution is halted.
+4. If the object is uninitialized (i.e. its type is `Type::Null`) , then an `std::runtime_exception()` exception is thrown , and execution is halted.
 
 ### DynamicTyping::Object::operator=()
 
-An overloaded version for the assignment operator with 13 different operators.
+An overloaded version for the assignment operator with 15 different operators.
 
 ```c++
 
-DynamicTyping::Object operator=(const char&);
-DynamicTyping::Object operator=(const bool&);
-DynamicTyping::Object operator=(const short int&);
-DynamicTyping::Object operator=(const unsigned short int&);
-DynamicTyping::Object operator=(const int&);
-DynamicTyping::Object operator=(const unsigned int&);
-DynamicTyping::Object operator=(const long long int&);
-DynamicTyping::Object operator=(const unsigned long long int&);
-DynamicTyping::Object operator=(const float&);
-DynamicTyping::Object operator=(const double&);
-DynamicTyping::Object operator=(const std::string&);
-DynamicTyping::Object operator=(const DynamicTyping::Object&);
+DynamicTyping::Object::operator=(const std::nullptr_t&);
+DynamicTyping::Object::operator=(const char&);
+DynamicTyping::Object::operator=(const char*);
+DynamicTyping::Object::operator=(const bool&);
+DynamicTyping::Object::operator=(const short int&);
+DynamicTyping::Object::operator=(const unsigned short int&);
+DynamicTyping::Object::operator=(const int&);
+DynamicTyping::Object::operator=(const unsigned int&);
+DynamicTyping::Object::operator=(const long long int&);
+DynamicTyping::Object::operator=(const unsigned long long int&);
+DynamicTyping::Object::operator=(const float&);
+DynamicTyping::Object::operator=(const double&);
+DynamicTyping::Object::operator=(const std::string&);
+DynamicTyping::Object::operator=(const DynamicTyping::Object&);
 
 template<typename any> 
-DynamicTyping::Object operator=(const any&);
+DynamicTyping::Object::operator=(const any&);
 
 ```
 
@@ -295,14 +353,21 @@ Returns `DynamicTyping::Type` that describes the type of a `DynamicTyping::Objec
 
 Returns a textual representation of a `DynamicTyping::Object` instance , it follows the same rules of `DynamicTyping::Object::operator<<()`.
 
+### DynamicTyping::Object::GetDeepType()
+
+If instance contains a value which has a type of `Types::Other` , then this function returns a string which represents the deep type of this value.
+
 
 # Notes
 - When assigning a value or a variable to an instance of `DynamicTyping::Object` , the type inference happens automatically according to the underlying variable type , there's nothing special you need to do.
 - When assigning a variable of type `Type::Other` , the API understands the deep type of this variable (i.e. what class was instantiated to produce this variable).
 - As for printing an instance of `DynamicTyping::Object` with `Type::Other` , the printed value in this case depends on what `typeid().name()` returns.
+- When you initialize an instance either with a string literal or with an instance of `std::string` , there would be no difference in the way `DynamicTyping::Object` deals with them , the only difference is that in the first case the instance will have the type `Types::StringLiteral` , and in the second case it will have the type `Types::String`.
 - The behavior of `DynamicTyping::Object::operator==()` and `DynamicTyping::Object::operator!=()` is inspired from the `Object` datatype in `C#`.
 
 # Noticed issues
+
+<s>
 - String literals doesn't work:
 
 ```c++
@@ -312,6 +377,8 @@ DynamicTyping::Object var2 = string("Hello World");   // compiles fine
 
 ```
 (Hopefully this will be fixed in the future releases)
+</s> 
+(Since Mar 29, 2019 , this issue has been fixed but it was left here for historical reasons, please review the <a href="#notes">notes</a> section for more info).
 
 - Possible memory lacks (the implementation adds a layer above the `void*` datatype , and since deallocating a `void` pointer is undefined behavior , it was left as is) .
 
