@@ -6,18 +6,28 @@
  * File:    Object.cpp
  * This file contains the actual implementation.
  * 
- * */
+ * */ 
 
 #include "./Object.hpp"     // let's include the prototypes
 
 DynamicTyping::Object::Object() {
-    this->value = new void*();
-    this->type = Type::NoType;
+    this->value = nullptr;
+    this->type = Type::Null;
+}
+
+DynamicTyping::Object::Object(std::nullptr_t value) {
+    this->value = nullptr;
+    this->type = Type::Null;
 }
 
 DynamicTyping::Object::Object(char value) {
     this->value = new char(value);
     this->type = Type::Char;
+}
+
+DynamicTyping::Object::Object(char *value) {
+    this->value = new std::string(value);
+    this->type = Type::StringLiteral;
 }
 
 DynamicTyping::Object::Object(bool value) {
@@ -75,9 +85,21 @@ DynamicTyping::Object::Object(const Object &var) {
     this->type = Type::Object;
 }
 
+DynamicTyping::Object DynamicTyping::Object::operator=(const std::nullptr_t &variable) {
+    this->value = nullptr;
+    this->type = Type::Null;
+    return *this;
+}
+
 DynamicTyping::Object DynamicTyping::Object::operator=(const char &variable) {
     this->value = new char(variable);
     this->type = Type::Char;
+    return *this;
+}
+
+DynamicTyping::Object DynamicTyping::Object::operator=(const char *variable) {
+    this->value = new std::string(variable);
+    this->type = Type::StringLiteral;
     return *this;
 }
 
@@ -203,7 +225,7 @@ std::string DynamicTyping::Object::ToString() {
         double temp = *(double*)this->value;
         return std::to_string(temp);
     }
-    else if (this->type == Type::String) {
+    else if (this->type == Type::String || this->type == Type::StringLiteral) {
         std::string temp = *(std::string*)this->value;
         return temp;
     } 
@@ -215,7 +237,11 @@ std::string DynamicTyping::Object::ToString() {
         std::string temp = this->deep_type;
         return temp;
     }
-    else if (this->type == Type::NoType) {
+    else if (this->type == Type::Null) {
         throw std::runtime_error("Object doesn't reference any variable of any type");
     }
+}
+
+std::string DynamicTyping::Object::GetDeepType() {
+    return this->deep_type;
 }

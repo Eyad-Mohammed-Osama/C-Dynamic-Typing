@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <windows.h>
 #include "./Object.hpp"
 using namespace std;
 
@@ -25,12 +24,13 @@ int main(int argc, const char **argv) {
     string f = "Hello World";
     Person g = Person("Syrian", "Lucianos");
     Person *h = &g;
+    char s[] = "Hello World , This is a string literal";
 
     // Let's declare an array of objects
-    DynamicTyping::Object arr[] = {a, b, c, d, e, f, g, h};
+    DynamicTyping::Object arr[] = {a, b, c, d, e, f, g, h, s};
 
-    for (int i = 0; i < 8; i++) {
-        cout << arr[i] << endl;
+    for (int i = 0; i < 9; i++) {
+        cout << arr[i] << "\t\t" << arr[i].GetDeepType() << endl;
     }
 
     cout << endl;
@@ -55,6 +55,9 @@ int main(int argc, const char **argv) {
     variable = string("Hello World");     //  set the value to a string
     cout << variable << endl;
 
+    variable = "Hello World As A String Literal";   //  set the value as a string literal
+    cout << variable << endl;
+
     DynamicTyping::Object anotherVariable = variable;   // here's another one
     cout << anotherVariable << endl;    //  this will print the memory address of anotherVariable
 
@@ -77,6 +80,6 @@ int main(int argc, const char **argv) {
     anotherVariable = 6;
     cout << (variable == anotherVariable) << endl;  // false
     
-    system("pause");
+    cin.get();
     return 0;
 }

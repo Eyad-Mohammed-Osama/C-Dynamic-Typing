@@ -28,9 +28,10 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
         Float = 8,
         Double = 9,
         String = 10,
-        Object = 11,
-        Other = 12,
-        NoType = 13
+        StringLiteral = 11,
+        Object = 12,
+        Other = 13,
+        Null = 14
     };
 
     class Object {
@@ -43,7 +44,9 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
         public:
         // Constructors for different primitive types
         Object();
+        Object(std::nullptr_t);             // Explicit initialization to nullptr_t
         Object(char);                       // 8 bit ASCII character
+        Object(char*);                      // String literal
         Object(bool);                       
         Object(short int);                  // 16 bit signed integer
         Object(unsigned short int);         // 16 bit unsigned integer
@@ -96,7 +99,7 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
             else if (variable.type == Type::Double) {
                 os << *((double*)variable.value);
             }
-            else if (variable.type == Type::String) {
+            else if (variable.type == Type::String || variable.type == Type::StringLiteral) {
                 os << *((std::string*)variable.value);
             }
             else if (variable.type == Type::Object) {
@@ -105,7 +108,7 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
             else if (variable.type == Type::Other) {
                 os << (variable.deep_type);
             }
-            else if (variable.type == Type::NoType) {
+            else if (variable.type == Type::Null) {
                 throw std::runtime_error("Object doesn't reference any variable of any type");
             }
             return os;
@@ -113,8 +116,10 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
         
         //  assignment operators , used for copy constructor and assignment
 
+        Object operator=(const std::nullptr_t&);
         Object operator=(const Object&);
         Object operator=(const char&);
+        Object operator=(const char*);
         Object operator=(const bool&);
         Object operator=(const short int&);
         Object operator=(const unsigned short int&);
@@ -141,6 +146,7 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
 
         Type GetType();                     // returns the type of the variable
         std::string ToString();             // returns a text representation of the object
+        std::string GetDeepType();          // returns the deep type of the variable
     };  // end of the class
 }       // end of the namespace
 
