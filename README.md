@@ -1,5 +1,6 @@
 # C++ Dynamic Typing
 A C++ class to give the ability to use dynamic typing.
+<br/>
 Please read the changelog to see latest changes.
 
 # API Index
@@ -367,25 +368,9 @@ If instance contains a value which has a type of `Types::Other` , then this func
 
 # Noticed issues
 
-<ul>
-    <li>
-        <s>
-        String literals doesn't work:
+- <s>String literals doesn't work. (Hopefully this will be fixed in the future releases)</s> (Since Mar 29, 2019 , this issue has been fixed but it was left here for historical reasons, please review the <a href="#notes">notes</a> section for more info).
 
-        ```c++
-
-        DynamicTyping::Object var1 = "Hello World";           // won't compile
-        DynamicTyping::Object var2 = string("Hello World");   // compiles fine
-
-        ```
-        (Hopefully this will be fixed in the future releases)
-        </s> 
-        (Since Mar 29, 2019 , this issue has been fixed but it was left here for historical reasons, please review the <a href="#notes">notes</a> section for more info).
-    </li>
-    <li>
-        Possible memory lacks (the implementation adds a layer above the `void*` datatype , and since deallocating a `void` pointer is undefined behavior , it was left as is) .
-    </li>
-</ul>
+- Possible memory lacks (the implementation adds a layer above the `void*` datatype , and since deallocating a `void` pointer is undefined behavior , it was left as is) .
 
 # Report issues
 I don't expect this to be perfect , especially when this is the first release , there must be issues i haven't noticed.
