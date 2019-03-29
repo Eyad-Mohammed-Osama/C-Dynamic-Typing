@@ -367,20 +367,25 @@ If instance contains a value which has a type of `Types::Other` , then this func
 
 # Noticed issues
 
-<s>
-- String literals doesn't work:
+<ul>
+    <li>
+        <s>
+        String literals doesn't work:
 
-```c++
+        ```c++
 
-DynamicTyping::Object var1 = "Hello World";           // won't compile
-DynamicTyping::Object var2 = string("Hello World");   // compiles fine
+        DynamicTyping::Object var1 = "Hello World";           // won't compile
+        DynamicTyping::Object var2 = string("Hello World");   // compiles fine
 
-```
-(Hopefully this will be fixed in the future releases)
-</s> 
-(Since Mar 29, 2019 , this issue has been fixed but it was left here for historical reasons, please review the <a href="#notes">notes</a> section for more info).
-
-- Possible memory lacks (the implementation adds a layer above the `void*` datatype , and since deallocating a `void` pointer is undefined behavior , it was left as is) .
+        ```
+        (Hopefully this will be fixed in the future releases)
+        </s> 
+        (Since Mar 29, 2019 , this issue has been fixed but it was left here for historical reasons, please review the <a href="#notes">notes</a> section for more info).
+    </li>
+    <li>
+        Possible memory lacks (the implementation adds a layer above the `void*` datatype , and since deallocating a `void` pointer is undefined behavior , it was left as is) .
+    </li>
+</ul>
 
 # Report issues
 I don't expect this to be perfect , especially when this is the first release , there must be issues i haven't noticed.
