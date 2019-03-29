@@ -1,4 +1,4 @@
-## Mar 29, 2019, 3:20 AM GMT+2 (1553829600)
+## Mar 30, 2019, 12:54 AM GMT+2 (1553907250)
 <ul>
   <li>Added GetDeepType() method</li>
   <li>Fixed an error that would cause compile-time error if you try to initialize the object with a string literal</li>
