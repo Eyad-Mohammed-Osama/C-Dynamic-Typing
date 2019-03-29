@@ -46,7 +46,7 @@ namespace DynamicTyping {   // let's encapsulate everything in a nice namespace
         Object();
         Object(std::nullptr_t);             // Explicit initialization to nullptr_t
         Object(char);                       // 8 bit ASCII character
-        Object(char*);                      // String literal
+        Object(const char*);                // String literal
         Object(bool);                       
         Object(short int);                  // 16 bit signed integer
         Object(unsigned short int);         // 16 bit unsigned integer

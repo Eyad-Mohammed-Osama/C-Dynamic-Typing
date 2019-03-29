@@ -25,7 +25,7 @@ DynamicTyping::Object::Object(char value) {
     this->type = Type::Char;
 }
 
-DynamicTyping::Object::Object(char *value) {
+DynamicTyping::Object::Object(const char *value) {
     this->value = new std::string(value);
     this->type = Type::StringLiteral;
 }
