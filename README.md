@@ -123,7 +123,7 @@ Notice that the compilation must be done using C++ 2011 standard , if you're on 
 
 `g++ Object.cpp main.cpp -std=gnu++11 -o main.exe`
 
-(The implementation depends on scoped enums which isn't supported before C++ 2011).
+(The implementation depends on scoped enums which aren't supported before C++ 2011).
 
 # API Reference
 ## DynamicTyping::Types
