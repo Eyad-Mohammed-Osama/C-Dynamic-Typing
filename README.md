@@ -232,9 +232,9 @@ A constructor with 16 different prototypes.
 ```c++
 
 DynamicTyping::Object::Object();                            // Instantiate an uninitialized object
-DynamicTyping::Object(std::nullptr_t);                      // Instantiate an object and initialize it to nullptr
+DynamicTyping::Object::Object(std::nullptr_t);              // Instantiate an object and initialize it to nullptr
 DynamicTyping::Object::Object(char);                        // Instantiate an object and initialize it with an 8-bit ASCII character
-DynamicTyping::Object::Object(char*);                        // Instantiate an object and initialize it with a string literal
+DynamicTyping::Object::Object(char*);                       // Instantiate an object and initialize it with a string literal
 DynamicTyping::Object::Object(bool);                        // Instantiate an object and initialize it with a boolean value
 DynamicTyping::Object::Object(short int);                   // Instantiate an object and initialize it with a 16-bit signed integer
 DynamicTyping::Object::Object(unsigned short int);          // Instantiate an object and initialize it with a 16-bit unsigned integer
